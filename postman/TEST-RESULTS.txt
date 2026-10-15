@@ -1,0 +1,4 @@
+Newman run against real temporary MongoDB
+Requests: 16
+Assertions: 22
+Failures: 0

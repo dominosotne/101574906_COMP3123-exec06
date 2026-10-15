@@ -1,0 +1,21 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8081:8081"
+    environment:
+      DB_URL: mongodb://mongo:27017/notes_app
+    depends_on:
+      mongo:
+        condition: service_healthy
+  mongo:
+    image: mongo:8
+    volumes:
+      - notes_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+volumes:
+  notes_data:
